@@ -18,35 +18,35 @@
        01  PRINT-REC PIC X(132).
        WORKING-STORAGE SECTION.
        01  MISC.
-           03 EOF PIC X VALUE 'N'.
-               88 END-OF-DATA VALUE 'Y'.
-           03 LINE-CT PIC 99 VALUE 0.
-           03 PGNUM PIC 999 VALUE 1.
-           03 CLASSLIMIT-TOTAL PIC 9(5).
+           03 EOF                  PIC X VALUE 'N'.
+               88 END-OF-DATA      VALUE 'Y'.
+           03 LINE-CT              PIC 99 VALUE 0.
+           03 PGNUM                PIC 999 VALUE 1.
+           03 CLASSLIMIT-TOTAL     PIC 9(5).
            03 SEATSREMAINING-TOTAL PIC 9(5).
-           03 TAKEN-TOTAL PIC 9(5).
-           03 TAKEN-TEMP PIC 9(3).
+           03 TAKEN-TOTAL          PIC 9(5).
+           03 TAKEN-TEMP           PIC 9(3).
       *********************************************
       *    DESCRIPTION OF INPUT DATA LAYOUT       *
       *********************************************
        01  COURSE-DATA.
            03 C-COURSE.
-               05 C-ABB PIC XXX.
-               05 C-NUMB PIC XXXX.
-               05 C-SEC PIC XXX.
-           03 C-TITLE PIC X(20).
-           03 C-SEATS-REMAINING PIC S999.
-           03 C-CLASSLIMIT PIC 999.
-           03 FILLER PIC XXX.
+               05 C-ABB            PIC XXX.
+               05 C-NUMB           PIC XXXX.
+               05 C-SEC            PIC XXX.
+           03 C-TITLE              PIC X(20).
+           03 C-SEATS-REMAINING    PIC S999.
+           03 C-CLASSLIMIT         PIC 999.
+           03 FILLER               PIC XXX.
            03 C-STARTING-TIME.
-               05 C-STARTING-HOUR PIC 99.
-               05 C-STARTING-MIN PIC 99.
-           03 FILLER PIC XX.
-           03 C-DAYS PIC X(6).
+               05 C-STARTING-HOUR  PIC 99.
+               05 C-STARTING-MIN   PIC 99.
+           03 FILLER               PIC XX.
+           03 C-DAYS               PIC X(6).
            03 C-LOCATION.
-               05 C-BUILDING PIC XX.
-               05 C-ROOM PIC XXX.
-           03 FILLER PIC X(24).
+               05 C-BUILDING       PIC XX.
+               05 C-ROOM           PIC XXX.
+           03 FILLER               PIC X(24).
       *********************************************
       *    DESCRIPTION OF HEADING PRINT LINES     *
       *********************************************
@@ -159,8 +159,12 @@
       *    PRINT HEADING LINE                     *
       *********************************************
        225-COURSE-HEADINGS.
+           IF PGNUM > 1 THEN
+              MOVE SPACES TO PRINT-REC
+              WRITE PRINT-REC AFTER ADVANCING 1
+           END-IF.
            WRITE PRINT-REC FROM TITLEHEADING1
-               AFTER ADVANCING 1.
+               AFTER ADVANCING PAGE.
            WRITE PRINT-REC FROM TITLEHEADING2
                AFTER ADVANCING 1.
            MOVE SPACES TO PRINT-REC.
@@ -174,6 +178,8 @@
            WRITE PRINT-REC   
                AFTER ADVANCING 1.
            MOVE 0 TO LINE-CT.
+           ADD 1 TO PGNUM.
+           MOVE PGNUM TO TH1-PAGENUM.
       *********************************************
       *    PRINT FOOTER LINE                     *
       *********************************************
