@@ -52,7 +52,7 @@
       *********************************************
        01  TITLEHEADING1.
            03 FILLER               PIC X(36)   VALUE SPACES.
-           03 FILLER PIC X(28) VALUE 'EASTERN ILLIONOIS UNIVERSITY'.
+           03 FILLER PIC X(28) VALUE 'EASTERN ILLINOIS UNIVERSITY'.
            03 FILLER               PIC X(26)   VALUE SPACES.
            03 FILLER               PIC X(6)    VALUE 'PAGE'.
            03 TH1-PAGENUM          PIC Z9      VALUE 1.
